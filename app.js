@@ -49,6 +49,9 @@ app.use(app.router);
 app.use(require('stylus').middleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(cors());
+app.options("*", cors());
+
 function render(view, model) {
 	return function(req, res){
 		var myModel = Object.create(model);
