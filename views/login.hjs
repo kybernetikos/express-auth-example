@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>LOGIN</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>{{ title }}</h1>
+    {{#flash.error}}
+      ERROR: {{ . }}
+    {{/flash.error}}
+    <form id='login' method='post' accept-charset='UTF-8'>
+	    <fieldset >
+		    <legend>Login</legend>
+		    <label for='username' >UserName:</label>
+		    <input type='text' name='username' id='username'  maxlength="50" />
+			<br/>
+		    <label for='password' >Password:</label>
+		    <input type='password' name='password' id='password' maxlength="50" />
+			<br/>
+		    <input type='submit' name='Submit' value='Submit' />
+	    </fieldset>
+    </form>
+  </body>
+</html>
