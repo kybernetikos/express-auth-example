@@ -23,7 +23,6 @@ app.use(express.urlencoded());
 app.use(express.methodOverride());
 app.use(express.cookieParser('tremendous cabbages of arkansas'));
 app.use(flash());
-app.use(express.bodyParser());
 app.use(express.session());
 
 app.use(passport.initialize());
