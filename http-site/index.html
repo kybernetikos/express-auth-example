@@ -1,0 +1,19 @@
+<html>
+<head>
+	<title>Welcome</title>
+</head>
+<body>
+
+	<h1>Security Message</h1>
+
+	<p>This site is served using https.  You will need to import the self signed certificate and
+	allow it as an exception.  Since this page is insecure, it's important that after you
+	have downloaded the certificate, you check that the SHA thumbprint is the same as listed at
+		.... [some https site that I can reasonably securely add content to] ....
+	</p>
+
+	<button onclick='location="/cert"'>Get The Certificate</button>
+	<button onclick='location="https://localhost:3000/"'>Go to the secure site</button>
+
+</body>
+</html>

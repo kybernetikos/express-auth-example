@@ -1,8 +1,4 @@
-
-/**
- * Module dependencies.
- */
-
+var fs = require('fs');
 var express = require('express');
 var user = require('./routes/user');
 var flash = require('connect-flash');
@@ -12,10 +8,11 @@ var passport = require("passport");
 var LocalStrategy = require('passport-local').Strategy;
 var ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn;
 var auth = require('./lib/auth');
+var cors = require('cors');
+var https = require('https');
 
 var app = express();
 
-// all environments
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hjs');
@@ -75,6 +72,32 @@ app.get('/logout', function(req, res){
 	res.redirect('/');
 });
 
+/*
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
+});
+ */
+
+/*
+ openssl genrsa -out key.pem
+ openssl req -new -key key.pem -out csr.pem
+ openssl x509 -req -days 9999 -in csr.pem -signkey key.pem -out cert.pem
+ */
+var options = {
+	key: fs.readFileSync('./https/key.pem'),
+	cert: fs.readFileSync('./https/cert.crt')
+};
+https.createServer(options, app).listen(app.get('port'), function() {
+	console.log('Express https server listening on port ' + app.get('port'));
+});
+
+
+var httpApp = express();
+var httpPort = 8083;
+httpApp.use(express.static(path.join(__dirname, 'http-site')));
+httpApp.get('/cert', function(req, res) {
+	res.sendfile(path.join(__dirname, "https", "cert.crt"));
+});
+http.createServer(httpApp).listen(httpPort, function() {
+	console.log('http server listening on port ' + httpPort);
 });
